@@ -1,0 +1,25 @@
+[
+  {
+    "question": "Wisconsin does not exist.",
+    "answer": false
+  },
+
+  {
+    "question": "Tardigrades can survive in space",
+    "answer": true
+  },
+
+  {
+    "question": "An extinct species of penguin once stood at 6 feet 8 inches tall",
+    "answer": true
+  },
+
+  {
+    "question": "Penguins do not have knees",
+    "answer": false
+  },
+
+  {
+
+  }
+]
