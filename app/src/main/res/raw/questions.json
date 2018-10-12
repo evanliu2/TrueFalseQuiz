@@ -20,6 +20,17 @@
   },
 
   {
+    "question": "Ms. Jaroch is the best AP Lang teacher",
+    "answer": true
+  },
 
+  {
+    "question": "Two Plus Two is Four, Minus One That's Three Quick Maths?",
+    "answer": true
+  },
+
+  {
+    "question": "Master Yi is a balanced champ",
+    "answer": false
   }
 ]
