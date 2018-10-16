@@ -5,9 +5,10 @@ public class Question {
     private String question;
     private boolean answer;
 
-    public Question(String inputQuestion)
+    public Question(String inputQuestion, boolean inputAnswer)
     {
-
+        this.question = inputQuestion;
+        this.answer = inputAnswer;
     }
 
     public String getQuestion() {

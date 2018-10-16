@@ -8,9 +8,9 @@ public class Quiz {
     private int score;
     private int currentQuestion;
 
-    public Quiz()
+    public Quiz(List<Question> questions)
     {
-
+        this.questions = questions;
     }
 
     public List<Question> getQuestions()
@@ -43,8 +43,21 @@ public class Quiz {
         this.currentQuestion = currentQuestion;
     }
 
-    public void getNextQuestion()
+    public String getNextQuestion()
     {
+
+        int i = 0;
+
+        if(isThereAnotherQuestion())
+        {
+            i++;
+            return questions.get(i).toString();
+        }
+
+        else
+        {
+            return "Out of Questions";
+        }
 
     }
 
