@@ -1,76 +1,47 @@
 package com.example.truefalsequiz;
 
+import com.example.truefalsequiz.Question;
+
 import java.util.List;
 
 public class Quiz {
-
-    private List<Question> questions;
     private int score;
     private int currentQuestion;
+    private List<Question> quiz;
 
-    public Quiz(List<Question> questions)
-    {
-        this.questions = questions;
+    public Quiz(List<Question> quiz) {
+        this.quiz = quiz;
+        score = 0;
+        currentQuestion = 0;
     }
 
-    public List<Question> getQuestions()
-    {
-        return questions;
+    public List<Question> getQuiz() {
+        return quiz;
     }
 
-    public void setQuestions(List<Question> questions)
-    {
-        this.questions = questions;
+    public void setQuiz(List<Question> quiz) {
+        this.quiz = quiz;
     }
 
-    public int getScore()
-    {
-        return score;
-    }
-
-    public void setScore(int score)
-    {
-        this.score = score;
-    }
-
-    public int getCurrentQuestion()
-    {
+    public int getCurrentQuestionNum() {
         return currentQuestion;
     }
 
-    public void setCurrentQuestion(int currentQuestion)
-    {
+    public Question getCurrentQuestion() {
+
+        return quiz.get(currentQuestion);
+    }
+
+    public void setCurrentQuestion(int currentQuestion) {
         this.currentQuestion = currentQuestion;
     }
 
-    public String getNextQuestion()
-    {
+    public int getScore() {
 
-        int i = 0;
-
-        if(isThereAnotherQuestion())
-        {
-            i++;
-            return questions.get(i).toString();
-        }
-
-        else
-        {
-            return "Out of Questions";
-        }
-
+        return score;
     }
 
-    public boolean isThereAnotherQuestion()
-    {
-        if(currentQuestion + 1 >= questions.size())
-        {
-            return false;
-        }
-
-        else
-        {
-            return true;
-        }
+    public void setScore(int score) {
+        this.score = score;
     }
 }

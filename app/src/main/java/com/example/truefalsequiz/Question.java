@@ -1,29 +1,41 @@
 package com.example.truefalsequiz;
 
 public class Question {
-
     private String question;
-    private boolean answer;
+    private Boolean answer;
 
-    public Question(String inputQuestion, boolean inputAnswer)
-    {
-        this.question = inputQuestion;
-        this.answer = inputAnswer;
+    //constructor
+    public Question(String question, Boolean answer) {
+        this.question = question;
+        this.answer = answer;
     }
 
-    public String getQuestion() {
-        return question;
+    //Getters and Setters
+    public void setAnswer(Boolean answer) {
+        this.answer = answer;
     }
 
     public void setQuestion(String question) {
+
         this.question = question;
     }
 
-    public boolean isAnswer() {
+    public Boolean getAnswer() {
+
         return answer;
     }
 
-    public void setAnswer(boolean answer) {
-        this.answer = answer;
+    public String getQuestion() {
+
+        return question;
+    }
+
+    //Other methods
+    public Boolean checkAnswer(Boolean userAnswer) {
+        if (userAnswer.equals(answer)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

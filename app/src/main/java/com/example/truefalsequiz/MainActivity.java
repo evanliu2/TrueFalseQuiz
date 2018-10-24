@@ -1,9 +1,11 @@
 package com.example.truefalsequiz;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -23,10 +25,12 @@ public class MainActivity extends Activity {
     private Button buttonTrue;
     private Button buttonFalse;
     private TextView textViewScore;
-    private TextView textViewquestion;
-    private List<Question> questions;
+    private TextView textViewQuestion;
+    private List<Question> questionList;
+    private Quiz quiz;
 
     public static final String TAG = "MainActivity";
+    public static final String EXTRA_MESSAGE = "Message";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,17 +45,38 @@ public class MainActivity extends Activity {
 // read your json file into an array of questions
         Question[] questions =  gson.fromJson(sxml, Question[].class);
 // convert your array to a list using the Arrays utility class
-        List<Question> questionList = Arrays.asList(questions);
+        questionList = Arrays.asList(questions);
 // verify that it read everything properly
         Log.d(TAG, "onCreate: " + questionList.toString());
 
-        Quiz quiz = new Quiz(questionList);
+        quiz = new Quiz(questionList);
 
         wireWidgets();
+        setListeners();
+        initializeQuiz(quiz);
 
     }
 
-    public String readTextFile(InputStream inputStream) {
+    private void initializeQuiz(Quiz quiz){
+        if(quiz.getCurrentQuestionNum() == 5)
+        {
+            Intent finalScore = new Intent(MainActivity.this, MainActivity.class);
+            finalScore.putExtra(EXTRA_MESSAGE, quiz.getScore());
+            startActivity(finalScore);
+        }
+        else
+        {
+            textViewQuestion.setText(quiz.getCurrentQuestion().getQuestion());
+        }
+    }
+
+    private void updateQuiz(Quiz quiz){
+        textViewScore.setText("Score:" + quiz.getScore());
+        quiz.setCurrentQuestion(quiz.getCurrentQuestionNum() + 1);
+        initializeQuiz(quiz);
+    }
+
+    private String readTextFile(InputStream inputStream) {
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
@@ -77,16 +102,54 @@ public class MainActivity extends Activity {
 
     }
 
-    private void wireWidgets()
-    {
+    private void wireWidgets(){
         buttonTrue = findViewById(R.id.button_truefalse_true);
         buttonFalse = findViewById(R.id.button_truefalse_false);
-        textViewquestion = findViewById(R.id.textView_truefalse_question);
+        textViewQuestion = findViewById(R.id.textView_truefalse_question);
         textViewScore = findViewById(R.id.textView_truefalse_score);
 
     }
 
+    private void setListeners(){
+        buttonTrue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                if(quiz.getCurrentQuestion().getAnswer() == true)
+                {
+                    quiz.setScore(quiz.getScore() + 1);
+                }
 
-}
+                else
+                {
+                    quiz.setScore(quiz.getScore() - 1);
+                }
+
+                updateQuiz(quiz);
+
+            }
+
+        });
+        buttonFalse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(quiz.getCurrentQuestion().getAnswer() == false)
+                {
+                    quiz.setScore(quiz.getScore() + 1);
+                }
+
+                else
+                {
+                    quiz.setScore(quiz.getScore() - 1);
+                }
+
+                updateQuiz(quiz);
+
+            }
+        });
+    }
+
+    }
+
 
